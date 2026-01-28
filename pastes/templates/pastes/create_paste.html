@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Paste</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        textarea, input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Create a Paste</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label>Paste Content *</label>
+    <textarea name="content" rows="10" required></textarea>
+
+    <label>TTL (seconds, optional)</label>
+    <input type="number" name="ttl_seconds" min="1">
+
+    <label>Max Views (optional)</label>
+    <input type="number" name="max_views" min="1">
+
+    <button type="submit">Create Paste</button>
+</form>
+
+{% if paste_url %}
+    <hr>
+    <p><strong>Share this link:</strong></p>
+    <a href="{{ paste_url }}" target="_blank">{{ paste_url }}</a>
+{% endif %}
+
+{% if error %}
+    <p style="color:red">{{ error }}</p>
+{% endif %}
+
+</body>
+</html>
